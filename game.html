@@ -1,0 +1,111 @@
+<html>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script>
+        var canvas;
+        var canvasContext;
+        var ballX = 50;
+        var ballSpeedX = 3;
+        var ballY = 50;
+        var ballSpeedY = 3;
+        
+        var paddle1Y = 250;
+        const PADDLE_HEIGHT = 75;
+
+        function calculateMousPos(evt){
+            var rect = canvas.getBoundingClientRect();
+            var root = document.documentElement;
+            var mouseX = evt.clientX - rect.left - root.scrollLeft;
+            var mouseY = evt.clientY - rect.top - root.scrollTop;
+            return {
+                x:mouseX,
+                y:mouseY
+            }
+        }
+
+        window.onload = function(){
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+
+            // smoother fps
+            var framesPerSecond = 60;
+            setInterval(function(){
+                moveEverything();
+                drawAllShapes();
+            }, 1000/framesPerSecond);
+
+            canvas.addEventListener('mousemove', function(evt) {
+                var mousePos = calculateMousPos(evt);
+                paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
+            })
+        }
+
+        function moveEverything(){
+            ballX = ballX + ballSpeedX;
+            ballY = ballY + ballSpeedY;
+            if(ballX > canvas.width){
+                ballSpeedX = -ballSpeedX;
+                ballX = ballX + ballSpeedX;
+            }
+            if(ballX < 0){
+                ballSpeedX = -ballSpeedX;
+                ballX = ballX + ballSpeedX;
+            }
+            if(ballY > canvas.height){
+                ballSpeedY = -ballSpeedY;
+                ballY = ballY + ballSpeedY;
+            }
+            if(ballY < 0){
+                ballSpeedY = -ballSpeedY;
+                ballY = ballY + ballSpeedY;
+            }
+        }
+
+        function drawAllShapes(){
+
+            // Main Canvas
+            colorRect(0, 0, canvas.width, canvas.height, 'black');
+
+            // Paddles
+           colorRect(0, paddle1Y, 5, PADDLE_HEIGHT, 'white');
+
+           // Ball
+           colorCircle(ballX, ballY, 10, 'white');
+
+            // Middle Divider Lines
+            colorRect(390, 550, 5, 20, 'white');
+            colorRect(390, 525, 5, 20, 'white');
+            colorRect(390, 500, 5, 20, 'white');
+            colorRect(390, 475, 5, 20, 'white');
+            colorRect(390, 450, 5, 20, 'white');
+            colorRect(390, 425, 5, 20, 'white');
+            colorRect(390, 400, 5, 20, 'white');
+            colorRect(390, 375, 5, 20, 'white');
+            colorRect(390, 350, 5, 20, 'white');
+            colorRect(390, 325, 5, 20, 'white');
+            colorRect(390, 300, 5, 20, 'white');
+            colorRect(390, 275, 5, 20, 'white');
+            colorRect(390, 250, 5, 20, 'white');
+            colorRect(390, 225, 5, 20, 'white');
+            colorRect(390, 200, 5, 20, 'white');
+            colorRect(390, 175, 5, 20, 'white');
+            colorRect(390, 150, 5, 20, 'white');
+            colorRect(390, 125, 5, 20, 'white');
+            colorRect(390, 100, 5, 20, 'white');
+            colorRect(390, 75, 5, 20, 'white');
+            colorRect(390, 50, 5, 20, 'white');
+            colorRect(390, 25, 5, 20, 'white');
+        }
+
+        function colorCircle(centerX, centerY, radius,drawColor){
+            canvasContext.fillStyle = drawColor;
+            canvasContext.beginPath();
+            canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+            canvasContext.fill();
+        }
+
+        function colorRect(leftX, topY, width, height, drawColor){
+            canvasContext.fillStyle = drawColor;
+            canvasContext.fillRect(leftX, topY, width, height, drawColor);
+        }
+    </script>
+</html>
