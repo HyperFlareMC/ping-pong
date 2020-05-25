@@ -4,13 +4,13 @@
         var canvas;
         var canvasContext;
         var ballX = 50;
-        var ballSpeedX = 2;
+        var ballSpeedX = 3;
         var ballY = 50;
-        var ballSpeedY = 2;
+        var ballSpeedY = 3;
 
         var player1Score = 0;
         var player2Score = 0;
-        const WINNING_SCORE = 5;
+        const WINNING_SCORE = 10;
 
         var showingWinScreen = false;
         
@@ -39,7 +39,6 @@
         }
 
         window.onload = function(){
-            alert("Yes, BogBrew is still cool!");
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
